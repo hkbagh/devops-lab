@@ -1,0 +1,23 @@
+name: DevOps CI Pipeline
+
+# 1. When should this robot run?
+on:
+  push:
+    branches: [ "master" ]
+
+# 2. What jobs should the robot do?
+jobs:
+  build-and-test:
+    # 3. What operating system should the robot use? (A fresh cloud server)
+    runs-on: ubuntu-latest
+
+    # 4. The step-by-step tasks
+    steps:
+      - name: 📥 Download my code from GitHub
+        uses: actions/checkout@v3
+
+      - name: 🐳 Test the Docker Build
+        run: |
+          echo "Building the Docker image to make sure the code isn't broken..."
+          docker build -t my-custom-app:test .
+          echo "Build successful! The code is safe."
